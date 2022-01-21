@@ -1,4 +1,5 @@
 const express = require('express');
+const searchArticle = require('./searchArticles')
 const articles = require('../data/articles.json');
 const router = express.Router()
 
@@ -21,19 +22,16 @@ router.get('/:category', (req, res) => {
 
 router.get('/article/:id', (req, res) => {
     const askedID = parseInt(req.params.id, 10);
-    let foundArticle = null;
-    for (const article of articles) {
-        if (article.id === askedID) {
-            foundArticle = article;
-            break;
-        }
-    }
+    const foundArticle = searchArticle(askedID);
 
     if (foundArticle) {
         res.render('article', {
             article: foundArticle
         });
+    } else {
+        res.write('<h1>Not found noob.</h1>');
     }
+    
 })
 
 module.exports = router;

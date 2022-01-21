@@ -12,7 +12,7 @@
                   dans la catégorie <a href="<%=article.category%>"><%=article.category%></a>
                 </div>
               </header>
-              <p><%=article.text%></p>
+              <p><%=article.text.substring(0, 30)%></p>
               <a class="card-action pure-button" href="article/<%= article.id %>">Lire l'article</a>
             </article>
         <% } %>
