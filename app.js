@@ -11,10 +11,29 @@ app.set('views', pathToViews);
 
 app.use(express.static(path.resolve(__dirname, './static')));
 
+app.locals = {
+    articles: articles,
+};
+
 app.get('/', (req, res) => {
-    res.render('index', {
-        articles: articles
-    });
+    res.render('index');
+})
+
+app.get('/article/:id', (req, res) => {
+    const askedID = parseInt(req.params.id, 10);
+    let foundArticle = null;
+    for (const article of articles) {
+        if (article.id === askedID) {
+            foundArticle = article;
+            break;
+        }
+    }
+
+    if (foundArticle) {
+        res.render('article', {
+            article: foundArticle
+        });
+    }
 })
 
 
