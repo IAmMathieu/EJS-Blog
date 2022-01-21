@@ -10,6 +10,15 @@ router.get('/', (req, res) => {
     });
 })
 
+router.get('/:category', (req, res) => {
+    const askedCategory = req.params.category
+    res.render('category', {
+        articles: articles,
+        category: askedCategory
+    });
+})
+
+
 router.get('/article/:id', (req, res) => {
     const askedID = parseInt(req.params.id, 10);
     let foundArticle = null;
